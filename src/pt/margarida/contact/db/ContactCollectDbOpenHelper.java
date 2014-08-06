@@ -15,7 +15,7 @@ public class ContactCollectDbOpenHelper extends SQLiteOpenHelper{
     		+ ContactCollectContract.Project._ID + " integer primary key autoincrement, " 
     		+ ContactCollectContract.Project.COL_NAME + " text not null, " 
     		+ ContactCollectContract.Project.COL_START_DATE + " real ," 
-    		+ ContactCollectContract.Project.COL_END_DATE + " real " 
+    		+ ContactCollectContract.Project.COL_END_DATE + " real ," 
     		+ ContactCollectContract.Project.COL_ENDLESS + " integer not null," 
     		+ ContactCollectContract.Project.COL_DELETED + " integer not null" 
     		+ ");";
@@ -23,17 +23,18 @@ public class ContactCollectDbOpenHelper extends SQLiteOpenHelper{
 
     public ContactCollectDbOpenHelper(Context context) {
       super(context, ContactCollectDAO.DATABASE_NAME, null, ContactCollectDAO.DATABASE_VERSION);
+//      context.deleteDatabase(ContactCollectDAO.DATABASE_NAME);
     }
 
     // Method is called during creation of the database
     @Override
     public void onCreate(SQLiteDatabase database) {
-      try {
-		database.execSQL(PROJECT_CREATE);
-		Log.i(TAG, "The creation query has been successfully executed. \n"+PROJECT_CREATE);
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
+    	try {
+    		database.execSQL(PROJECT_CREATE);
+    		Log.w(TAG, "The creation query has been successfully executed. \n"+PROJECT_CREATE);
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
     }
 
 	@Override

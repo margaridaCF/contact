@@ -54,6 +54,7 @@ public class ContactCollectContentProvider extends ContentProvider{
 	public Uri insert(Uri uri, ContentValues values) {
 		// TODO usar uri matcher + db access
 		int uriType = sURIMatcher.match(uri);
+		// Put this in AsyncTask and use 
 	    SQLiteDatabase sqlDB = database.getWritableDatabase();
 	    Log.w(TAG, "after getWritableDatabase call at ContentProvider");
 	    int rowsDeleted = 0;

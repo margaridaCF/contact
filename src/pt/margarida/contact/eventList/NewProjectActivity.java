@@ -36,7 +36,7 @@ public class NewProjectActivity extends Activity {
         	values.put(ContactCollectContract.Project.COL_NAME, projectName);
 //        	values.put(ContactCollectContract.Project.COL_START_DATE, start.getTime());
 //        	values.put(ContactCollectContract.Project.COL_END_DATE, end.getTime());
-//        	values.put(ContactCollectContract.Project.COL_ENDLESS, 0);
+        	values.put(ContactCollectContract.Project.COL_ENDLESS, 0);
         	values.put(ContactCollectContract.Project.COL_DELETED, 0);
         	Uri inserUri = Uri.parse(ContactCollectContract.AUTHORITY + ContactCollectContract.Project.tableName);
         	getContentResolver().insert(ContactCollectContract.Project.CONTENT_URI, values);
