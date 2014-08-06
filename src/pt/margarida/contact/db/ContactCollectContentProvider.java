@@ -56,12 +56,12 @@ public class ContactCollectContentProvider extends ContentProvider{
 		int uriType = sURIMatcher.match(uri);
 		// Put this in AsyncTask and use 
 	    SQLiteDatabase sqlDB = database.getWritableDatabase();
-	    Log.w(TAG, "after getWritableDatabase call at ContentProvider");
 	    int rowsDeleted = 0;
 	    long id = 0;
 	    switch (uriType) {
 	    case ContactCollectorUriMatcher.PROJECT:
 	    	id = sqlDB.insert(ContactCollectContract.Project.tableName, null, values);
+	    	Log.i(TAG, "Inserted "+values.toString());
 	      break;
 	    default:
 	      throw new IllegalArgumentException("Unknown URI: " + uri);
