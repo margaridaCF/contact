@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" 
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.margarida.contact.eventList"
     android:versionCode="1"
     android:versionName="1.0" >
-    
-    <uses-sdk android:minSdkVersion="11" 
-        android:targetSdkVersion="19"/>
 
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
     <application>
         <activity
-            android:name="pt.margarida.contact.EventListActivity"
+            android:name="pt.margarida.contact.eventList.EventListActivity"
             android:label="@string/title_activity_event_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="pt.margarida.contact.eventList.NewProjectActivity"
+            android:label="@string/title_activity_new_project" >
+        </activity>
 
         <provider
-            android:name="pt.margarida.contact.contentprovider.DbContentProvider"
-            android:authorities="pt.margarida.contact.db.contentprovider" >
+            android:name="pt.margarida.contact.db.ContactCollectContentProvider"
+            android:authorities="pt.margarida.contactcollector" >
         </provider>
+
     </application>
 
 </manifest>

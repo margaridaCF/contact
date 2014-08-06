@@ -1,8 +1,6 @@
 package pt.margarida.contact.eventList;
 
-import pt.margarida.contact.db.DbContentProvider;
-import pt.margarida.contact.db.EventContract;
-import pt.margarida.contact.eventCollect.EventCollectActivity;
+import pt.margarida.contact.db.ContactCollectContract;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -15,18 +13,19 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-/*
- * TodosOverviewActivity displays the existing todo items
- * in a list
- * 
- * You can create new ones via the ActionBar entry "Insert"
- * You can delete existing ones via a long press on the item
- */
-
 public class EventListActivity extends ListActivity implements
     LoaderManager.LoaderCallbacks<Cursor> {
 	// private Cursor cursor;
 	private SimpleCursorAdapter adapter;
+
+    static final String[] LIST_PROJECTION = new String[] {ContactCollectContract.Project._ID,
+    	ContactCollectContract.Project.COL_NAME};
+
+    // This is the select criteria
+    static final String LIST_SELECTION = "((" + 
+    		ContactCollectContract.Project.COL_NAME + " NOTNULL) )";
+
+	private static final String URI_SEL_PROJECT = "pt.margarida.contact.selProject";
 
 
 	/** Called when the activity is first created. */
@@ -44,38 +43,39 @@ public class EventListActivity extends ListActivity implements
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Intent i = new Intent(this, EventCollectActivity.class);
-		Uri todoUri = Uri.parse(DbContentProvider.CONTENT_URI + "/" + id);
-		i.putExtra(DbContentProvider.EVENT_TYPE, todoUri);
+		Intent i = new Intent(this, EventListActivity.class);
+		// Pass id
+		Uri projectUri = Uri.parse(ContactCollectContract.Project.CONTENT_ITEM_TYPE + "/" + id);
+		i.putExtra(URI_SEL_PROJECT, projectUri);
 
 		startActivity(i);
 	}
-
-
+	
+	public void createProject(View view) {
+		Intent intent = new Intent(this, NewProjectActivity.class);
+		startActivity(intent);
+	}
 
 	private void fillData() {
-
 		// Fields from the database (projection)
 		// Must include the _id column for the adapter to work
-		String[] from = new String[] { EventContract.COLUMN_NAME, EventContract._ID };
+		String[] from = new String[] { ContactCollectContract.Project.COL_NAME, ContactCollectContract.Project._ID };
 		// Fields on the UI to which we map
 		int[] to = new int[] { R.id.label };
 
 		getLoaderManager().initLoader(0, null, this);
 		adapter = new SimpleCursorAdapter(this, R.layout.row, null, from,
 				to, 0);
-
 		setListAdapter(adapter);
 	}
-
 
 	// creates a new loader after the initLoader () call
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		String[] projection = { EventContract.COLUMN_NAME,
-				EventContract.COLUMN_END_DATE, EventContract.COLUMN_START_DATE, EventContract.COLUMN_ENDLESS};
+		String[] projection = { ContactCollectContract.Project.COL_NAME,
+				ContactCollectContract.Project.COL_END_DATE, ContactCollectContract.Project.COL_START_DATE, ContactCollectContract.Project.COL_ENDLESS};
 		CursorLoader cursorLoader = new CursorLoader(this,
-				DbContentProvider.CONTENT_URI, projection, null, null, null);
+				ContactCollectContract.Project.CONTENT_URI, projection, null, null, null);
 		return cursorLoader;
 	}
 
