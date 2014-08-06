@@ -4,6 +4,7 @@ import pt.margarida.contact.db.ContactCollectContract;
 import pt.margarida.contact.db.ContactCollectorUriMatcher;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -41,5 +42,7 @@ public class NewProjectActivity extends Activity {
         	Uri inserUri = Uri.parse(ContactCollectContract.AUTHORITY + ContactCollectContract.Project.tableName);
         	getContentResolver().insert(ContactCollectContract.Project.CONTENT_URI, values);
     	}
+		Intent intent = new Intent(this, EventListActivity.class);
+		startActivity(intent);
 	}
 }
