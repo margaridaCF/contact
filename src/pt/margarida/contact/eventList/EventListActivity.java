@@ -1,6 +1,7 @@
 package pt.margarida.contact.eventList;
 
 import pt.margarida.contact.db.ContactCollectContract;
+import pt.margarida.contact.db.ContactCollectorUriMatcher;
 import android.app.ListActivity;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -72,10 +73,10 @@ public class EventListActivity extends ListActivity implements
 	// creates a new loader after the initLoader () call
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		String[] projection = { ContactCollectContract.Project.COL_NAME,
-				ContactCollectContract.Project.COL_END_DATE, ContactCollectContract.Project.COL_START_DATE, ContactCollectContract.Project.COL_ENDLESS};
+		String[] projection = { ContactCollectContract.Project.COL_NAME, ContactCollectContract.Project._ID};
+//				ContactCollectContract.Project.COL_END_DATE, ContactCollectContract.Project.COL_START_DATE, ContactCollectContract.Project.COL_ENDLESS};
 		CursorLoader cursorLoader = new CursorLoader(this,
-				ContactCollectContract.Project.CONTENT_URI, projection, null, null, null);
+				ContactCollectorUriMatcher.UriCC.PROJECT.getUri(), projection, null, null, ContactCollectContract.Project.COL_NAME+" DESC");
 		return cursorLoader;
 	}
 

@@ -39,8 +39,9 @@ public class NewProjectActivity extends Activity {
 //        	values.put(ContactCollectContract.Project.COL_END_DATE, end.getTime());
         	values.put(ContactCollectContract.Project.COL_ENDLESS, 0);
         	values.put(ContactCollectContract.Project.COL_DELETED, 0);
-        	Uri inserUri = Uri.parse(ContactCollectContract.AUTHORITY + ContactCollectContract.Project.tableName);
-        	getContentResolver().insert(ContactCollectContract.Project.CONTENT_URI, values);
+//        	Uri inserUri = Uri.parse(ContactCollectContract.AUTHORITY + ContactCollectContract.Project.tableName);
+//        	getContentResolver().insert(ContactCollectContract.Project.CONTENT_URI, values);
+        	getContentResolver().insert(ContactCollectorUriMatcher.UriCC.PROJECT.getUri(), values);
     	}
 		Intent intent = new Intent(this, EventListActivity.class);
 		startActivity(intent);
